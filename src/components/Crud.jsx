@@ -21,7 +21,13 @@ const Crud = ({open, setOpen, user, setUser, setMessageServ}) => {
                 setMessageServ(res.data.message);
             }   
             setOpen(false);
-            contactForm.reset();
+            contactForm.reset({
+                                id:'',
+                                nom:"",
+                                tel: "",
+                                email:"",
+                                addresse:""
+                            });
         } catch (error) {
             console.log(error);
             setMessageServ(error.response.data.message);
@@ -32,6 +38,7 @@ const Crud = ({open, setOpen, user, setUser, setMessageServ}) => {
         const res = await axios.delete(`${url}/api/v1/contacts/${id}`)
         console.log("message du serveur",res.data.message)
         setMessageServ(res.data.message);
+        setOpen(false);
     }
     useEffect(()=>{
         if(user){
