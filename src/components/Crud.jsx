@@ -121,7 +121,7 @@ const Crud = ({open, setOpen, user, setUser, setMessageServ}) => {
                         <input
                             value="Supprimer"
                             type="button" className="px-3 text-white py-1 border-2 border-black shadow-[5px_5px_0px_0px_black] cursor-pointer  text-[20px] font-semibold bg-[#c31e0c] hover:bg-[#c43d2d]"
-                            onClick={()=> {setOpen(false);
+                            onClick={()=> {
                                 submitDelete(user.id);
                                 contactForm.reset({
                                 id:'',
