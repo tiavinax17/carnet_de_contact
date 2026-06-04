@@ -21,6 +21,7 @@ const Crud = ({open, setOpen, user, setUser, setMessageServ}) => {
                 setMessageServ(res.data.message);
             }   
             setOpen(false);
+            setUser(null);
             contactForm.reset({
                                 id:'',
                                 nom:"",
@@ -39,6 +40,7 @@ const Crud = ({open, setOpen, user, setUser, setMessageServ}) => {
         console.log("message du serveur",res.data.message)
         setMessageServ(res.data.message);
         setOpen(false);
+        setUser(null);
     }
     useEffect(()=>{
         if(user){
