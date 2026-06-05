@@ -41,20 +41,20 @@ function App() {
 
   return (
     <div className="h-screen flex flex-col items-center justify-start pt-3 gap-5 overflow-hidden"
-    style={{
-      backgroundImage: 'url("pattern.svg")'
-    }}>
-      <div className="py-3 px-5 border-4 border-black bg-[#DA4848] shadow-[8px_8px_0px_0px_black]">
-        <h1 className="font-syne text-4xl font-extrabold text-white">
+      style={{
+        backgroundImage: 'url("pattern.svg")'
+      }}>
+      <div className="py-3 px-5 border-4 lg:w-[750px] w-[300px] border-black bg-[#DA4848] shadow-[8px_8px_0px_0px_black]">
+        <h1 className="font-syne lg:text-4xl text-[20px]   font-extrabold text-white">
           Mon carnet de contact :)
         </h1>      
       </div>
       {/* <Carnet isLoading={isLoading} setIsLoading = {setIsLoading}/> */}
       <Carnet user={user} setUser={setUser} open={open} setOpen={setOpen} contacts={contacts} setContacts={setContacts} setIsLoading={setIsLoading} />
       <ButtonAdd open={open} setOpen={setOpen}/>
-      <Crud open={open} setOpen={setOpen} user={user} setUser={setUser} messageServ={messageServ} setMessageServ={setMessageServ} setContacts ={setContacts} />
+      <Crud open={open} setOpen={setOpen} user={user} setUser={setUser} messageServ={messageServ} setMessageServ={setMessageServ} setContacts ={setContacts} setIsLoading={setIsLoading}/>
         {messageServ && 
-            <div className=" font-schoolbell -mr-40 fixed top-[550px] w-[300px] bg-pink-200 border-4 border-black shadow-[8px_8px_0px_0px_black]  text-[15px] px-2">
+            <div className=" font-schoolbell lg:-mr-40 -mr-20 fixed top-[550px] w-[300px] bg-pink-200 border-4 border-black shadow-[8px_8px_0px_0px_black]  text-[15px] px-2">
                 <h1 className="text-xl font-semibold">Message su serveur:</h1>
                 <p>{messageServ}</p>
                 
