@@ -1,20 +1,28 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import Avatar from "../images/avatar.jpeg";
+import { ContactContext } from "../context/ContactContext";
+import { useContext } from 'react'
+import { UserContext } from "../context/UseContext";
 
-
-const Carnet = ( {setUser, setOpen,open, contacts, setContacts, setIsLoading}) => {
+const Carnet = ( ) => {
+    const {connectedUser} = useContext(UserContext);
+    const {setUser, setOpen,open, contacts, setContacts, setIsLoading} = useContext(ContactContext);
     const url = import.meta.env.VITE_API_URL;
     const date = new Date();
     const [search, setSearch] = useState("");
     const [order, setOrder] = useState("asc");
+    
     useEffect(()=>{
     const fetchData = async () =>{
         try {
-            const res = await axios.get(url+"/api/v1/contacts");
-            setContacts(res.data.data);
-            console.log("Données reçues de l'API :", res.data.data);
-            setIsLoading(false);
+
+            if(connectedUser){
+                const res = await axios.get(url+"/api/v1/contacts/"+connectedUser.id);
+                setContacts(res.data.data);
+                console.log("Données reçues de l'API :", res.data.data);
+                setIsLoading(false);
+            }
         } catch (error) {
             console.log(error)
         }
@@ -24,10 +32,13 @@ const Carnet = ( {setUser, setOpen,open, contacts, setContacts, setIsLoading}) =
     useEffect(()=>{
         const fetchData = async () =>{
             try {
-                const res = await axios.get(url+"/api/v1/contacts");
-                setContacts(res.data.data);
-                console.log("Données reçues de l'API :", res.data.data);
-            } catch (error) {
+                if(connectedUser){
+                    const res = await axios.get(url+"/api/v1/contacts/"+connectedUser.id);
+                    setContacts(res.data.data);
+                    console.log("Données reçues de l'API :", res.data.data);
+                    setIsLoading(false);
+                }
+                } catch (error) {
                 console.log(error)
             }
         }

@@ -1,10 +1,16 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { ContactContext } from "../context/ContactContext";
+import { useContext } from 'react'
+import { UserContext } from "../context/UseContext";
 
-const Crud = ({open, setOpen, user, setUser, setMessageServ, setIsLoading}) => {
+const Crud = () => {
+    const {connectedUser} = useContext(UserContext);
+    const {open, setOpen, user, setUser, setMessageServ, setIsLoading} = useContext(ContactContext);
     const contactForm = useForm();
     const url = import.meta.env.VITE_API_URL;
+    console.log("crud",connectedUser)
 
     const contactSubmit = async (data) =>{
         try {
@@ -14,8 +20,8 @@ const Crud = ({open, setOpen, user, setUser, setMessageServ, setIsLoading}) => {
                 console.log("message du serveur",res.data.data)
                 setMessageServ(res.data.message);
             }
-            else{
-                const res = await axios.post(`${url}/api/v1/contacts`, data)
+            else if(connectedUser){
+                const res = await axios.post(`${url}/api/v1/contacts/${connectedUser.id}`, data)
                 console.log("message du serveur",res.data.data)
                 setMessageServ(res.data.message);
             }   
@@ -28,7 +34,7 @@ const Crud = ({open, setOpen, user, setUser, setMessageServ, setIsLoading}) => {
                                 email:"",
                                 addresse:""
                             });
-                            setIsLoading(false);
+        setIsLoading(false);
         } catch (error) {
             console.log(error);
             setMessageServ(error.response.data.message);
@@ -46,14 +52,14 @@ const Crud = ({open, setOpen, user, setUser, setMessageServ, setIsLoading}) => {
     useEffect(()=>{
         if(user){
             console.log("userrrr",user)
-        contactForm.reset({
-            id: user.id,
-            nom: user.nom,
-            tel: user.tel,
-            email: user.email,
-            addresse: user.addresse 
-        })
-    }
+            contactForm.reset({
+                id: user.id,
+                nom: user.nom,
+                tel: user.tel,
+                email: user.email,
+                addresse: user.addresse 
+            })
+        }
     },[user])
 
 
